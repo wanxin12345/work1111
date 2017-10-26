@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>10-21.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+
+ <ul id="box">
+	<li>111</li>
+    <li id="list">222</li>
+    <li>333</li>
+    <li>444</li>
+</ul>
+ <div class="red">div</div>
+<p class="blue">p标签</p>
+<span class="red blue" style="display: block;">span</span>
+<h1 class="blue red">h1</h1>
+<h3 class="red1">h3</h3>
+<h5 class="red2 blue red">h5</h5>
+<ul id="wrap">
+	<li class="blue">li</li>
+    <li class="blue1">li</li>
+    <li class="red">li</li>
+    <li class="redblue">li</li>
+    <li class="blue green">li</li>
+    <li class="yellow">li</li>
+</ul>
+ <ul id="box1">
+	<li>1111<a href="javascript:;">隐藏</a></li>
+    <li>2222<a href="javascript:;">隐藏</a></li>
+    <li>3333<a href="javascript:;">隐藏</a></li>
+    <li>4444<a href="javascript:;">隐藏</a></li>
+    
+</ul>
+ <select id="s1">
+	<option value="bj">北京</option>
+	<option value="tj">天津</option>
+	<option value="hb">河北</option>
+</select>
+ <textarea cols="100" rows="20" id="text"></textarea>
+<br/>
+<input type="button" value="运行代码" id="btn"/>
+ 
+  </body>
+  <script>
+  alert("更多結果請看控制台")
+  //break
+for(var i = 0; i < 10; i++){
+	if(i%2 == 1){
+		break;	
+	}
+	console.log(i);
+}
+  //continue
+  for(var i = 0; i < 10; i++){
+	if(i%2 == 1){
+		continue;	
+	}
+	console.log(i);
+}
+  //dom关系
+  window.onload = function(){
+	var oList = document.getElementById('list');
+	var oPrev = oList.previousSibling;
+	console.log(oPrev.innerHTML);
+	var oBox = document.getElementById('box');
+	var oLast = oBox.lastChild;
+	console.log(oPrev.innerHTML);
+	console.log(oLast);
+	//getByClass
+	var oWrap = document.getElementById('wrap');
+	var arr = getByClass(document,'blue');
+	for(var i = 0; i < arr.length; i++){
+		arr[i].style.background = 'blue';		
+	}
+	////点击子元素让父元素消失
+		var oBox1 = document.getElementById('box1');
+	var aBtn = oBox1.getElementsByTagName('a');
+	 
+	 for(var i = 0; i< aBtn.length; i++){
+		aBtn[i].onclick = function(){
+			this.parentNode.style.display = 'none';
+		}		 
+	}
+	//关于select
+	var oS = document.getElementById('s1');
+	//var aO = oS.getElementsByTagName('option');
+	var aO = oS.options;
+	alert(aO.length);
+	alert(oS.selectedIndex);
+	alert(aO[oS.selectedIndex].text);
+	
+	//在線運行代碼
+	var oTxt = document.getElementById('text');
+	var oBtn = document.getElementById('btn');
+	
+	oBtn.onclick = function(){
+		var win = window.open('about:blank');
+		win.document.write(oTxt.value);	
+		setTimeout(function(){
+			win.onload();	
+		},100);
+	}
+	
+	
+	
+	
+	}
+  //getByClass
+  function findInArr(n,arr){
+	for(var i = 0; i < arr.length; i++){
+		if(arr[i] == n)return true;	
+	}
+	return false;
+}
+function getByClass(oParent,sClass){
+	if(oParent.getElementsByClassName){
+		return oParent.getElementsByClassName(sClass);	
+	}else{
+		var aEle = oParent.getElementsByTagName('*');
+		var arr= [];
+		for(var i = 0; i < aEle.length; i++){
+			var tmp = aEle[i].className.split(' ');
+			if(findInArr(sClass,tmp) == true){
+				arr.push(aEle[i]);	
+			}	
+		}
+		return arr;
+	}
+}
+//查找出现次数最多的字母
+var str ='adadsadsaadassadsaasdfdf';
+var json = {};
+for(var i = 0; i < str.length; i++){
+	if(json[str[i]]){
+		json[str[i]]++;	
+	}else{
+		json[str[i]] = 1;
+	}
+}
+
+console.log(json);
+
+var n = 0;
+var s = '';
+//{a: 9, d: 7, s: 6, f: 2}
+for(var name in json){
+	//alert(json[name]);
+	//9,7,6,2
+	if(n < json[name]){
+		n = json[name];	
+		s = name;
+	}
+}
+alert('出现次数最多的字母是:' + s + '出现了:' + n + '次');
+
+
+//關於eval
+var json = '{a:1,b:2,c:3}';
+alert(eval('('+json+')').a);
+//定時循環
+for(var i = 0; i < 2; i++){
+   //alert(i);//0,1
+   (function(index){
+	setTimeout(function(){
+		alert(index);	
+	},300);	  
+   })(i);
+}
+//判断
+var a =   false || 0 || false || null;
+alert(a);null
+
+
+
+
+</script>
+  
+</html>
